@@ -2180,6 +2180,96 @@
                 "height": 5,
                 "view": "ciscoesa_view.display_reports"
             }
+        },
+        {
+            "action": "get_msgs_details",
+            "description": "",
+            "type": "",
+            "identifier": "get_msgs_details",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "get_msgs_urls",
+            "description": "",
+            "type": "",
+            "identifier": "get_msgs_urls",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "get_msgs_connection_details",
+            "description": "",
+            "type": "",
+            "identifier": "get_msgs_connection_details",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "get_msgs_remediation_details",
+            "description": "",
+            "type": "",
+            "identifier": "get_msgs_remediation_details",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "get_quarantined_msgs",
+            "description": "",
+            "type": "",
+            "identifier": "get_quarantined_msgs",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "get_quarantined_msgs_details",
+            "description": "",
+            "type": "",
+            "identifier": "get_quarantined_msgs_details",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "send_quarantined_msg_copy_to_email",
+            "description": "",
+            "type": "",
+            "identifier": "send_quarantined_msg_copy_to_email",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "add_blocklist_entry",
+            "description": "",
+            "type": "",
+            "identifier": "add_blocklist_entry",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+        {
+            "action": "edit_blocklist_entry",
+            "description": "",
+            "type": "",
+            "identifier": "edit_blocklist_entry",
+            "read_only": false,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
         }
     ],
     "pip_dependencies": {

@@ -612,6 +612,34 @@ class CiscoesaConnector(BaseConnector):
         else:
             return action_result.set_status(phantom.APP_SUCCESS, consts.CISCOESA_REMOVE_DICTIONARY_SUCCESS_MESSAGE)
 
+    def _handle_get_msgs_details(self, param):
+        return NotImplementedError("Action _handle_get_msgs_details not implemented.")
+        
+    def _handle_get_msgs_urls(self, param):
+        return NotImplementedError("Action _handle_get_msgs_urls not implemented.")
+        
+    def _handle_get_msgs_connection_details(self, param):
+        return NotImplementedError("Action _handle_get_msgs_connection_details not implemented.")
+        
+    def _handle_get_msgs_remediation_details(self, param):
+        return NotImplementedError("Action _handle_get_msgs_remediation_details not implemented.")
+        
+    def _handle_get_quarantined_msgs(self, param):
+        return NotImplementedError("Action _handle_get_quarantined_msgs not implemented.")
+        
+    def _handle_get_quarantined_msgs_details(self, param):
+        return NotImplementedError("Action _handle_get_quarantined_msgs_details not implemented.")
+        
+    def _handle_send_quarantined_msg_copy_to_email(self, param):
+        return NotImplementedError("Action _handle_send_quarantined_msg_copy_to_email not implemented.")
+        
+    def _handle_add_blocklist_entry(self, param):
+        return NotImplementedError("Action _handle_add_blocklist_entry not implemented.")
+        
+    def _handle_edit_blocklist_entry(self, param):
+        return NotImplementedError("Action _handle_edit_blocklist_entry not implemented.")
+
+
     def handle_action(self, param):
         """ This function gets current action identifier and calls member function of its own to handle the action.
 
@@ -625,8 +653,18 @@ class CiscoesaConnector(BaseConnector):
             "get_report": self._get_report,
             "decode_url": self._decode_url,
             "list_dictionary_items": self._handle_list_dictionary_items,
-            'add_dictionary_item': self._handle_add_dictionary_item,
-            'remove_dictionary_item': self._handle_remove_dictionary_item
+            "add_dictionary_item": self._handle_add_dictionary_item,
+            "remove_dictionary_item": self._handle_remove_dictionary_item,
+            "search_for_messages"
+            "get_msgs_details": self._handle_get_msgs_details, 
+            "get_msgs_urls": self._handle_get_msgs_urls, 
+            "get_msgs_connection_details": self._handle_get_msgs_connection_details, 
+            "get_msgs_remediation_details": self._handle_get_msgs_remediation_details, 
+            "get_quarantined_msgs": self._handle_get_quarantined_msgs, 
+            "get_quarantined_msgs_details": self._handle_get_quarantined_msgs_details, 
+            "send_quarantined_msg_copy_to_email": self._handle_send_quarantined_msg_copy_to_email,  
+            "add_blocklist_entry": self._handle_add_blocklist_entry,  # new entry. recipient/sender to be passed as parameters
+            "edit_blocklist_entry": self._handle_edit_blocklist_entry  # edit or append. recipient/sender to be passed as parameters    
         }
 
         action = self.get_action_identifier()

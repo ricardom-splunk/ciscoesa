@@ -13,6 +13,21 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+
+# GET
+CISCOESA_MSG_TRACKING_MESSAGES_ENDPOINT = "/esa/api/v2.0/message-tracking/messages?{resource_attribute}"
+CISCOESA_MSG_TRACKING_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/details?{resource_attribute}"
+CISCOESA_MSG_TRACKING_URL_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/url-details?{resource_attribute}"
+CISCOESA_MSG_TRACKING_CONN_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/connection-details?{resource_attribute}"
+CISCOESA_MSG_TRACKING_REMEDIATION_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/remediation-details?{resource_attribute}"
+CISCOESA_QUARANTINE_MESSAGES_ENDPOINT = "/esa/api/v2.0/quarantine/messages?{resource_attribute}"
+CISCOESA_QUARANTINE_MESSAGES_DETAILS_ENDPOINT = "/esa/api/v2.0/quarantine/messages/details?{resource_attribute}"
+
+# POST
+# "/esa/api/v2.0/quarantine/messages?{resource_attribute}" # (move(not wanted), delaying(optionnal), )  # same as above endpoint?
+CISCOESA_QUARANTINE_BLOCKLIST_ENDPOINT = "/esa/api/v2.0/quarantine/blocklist?{resource_attribute}"
+
+
 CISCOESA_CONFIG_URL = "url"
 CISCOESA_CONFIG_USERNAME = "username"
 CISCOESA_CONFIG_PASSWORD = "password"  # pragma: allowlist secret
