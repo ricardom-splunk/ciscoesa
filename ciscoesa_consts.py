@@ -15,17 +15,39 @@
 
 
 # GET
-CISCOESA_MSG_TRACKING_MESSAGES_ENDPOINT = "/esa/api/v2.0/message-tracking/messages?{resource_attribute}"
-CISCOESA_MSG_TRACKING_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/details?{resource_attribute}"
-CISCOESA_MSG_TRACKING_URL_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/url-details?{resource_attribute}"
-CISCOESA_MSG_TRACKING_CONN_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/connection-details?{resource_attribute}"
-CISCOESA_MSG_TRACKING_REMEDIATION_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/remediation-details?{resource_attribute}"
-CISCOESA_QUARANTINE_MESSAGES_ENDPOINT = "/esa/api/v2.0/quarantine/messages?{resource_attribute}"
-CISCOESA_QUARANTINE_MESSAGES_DETAILS_ENDPOINT = "/esa/api/v2.0/quarantine/messages/details?{resource_attribute}"
+CISCOESA_MSG_TRACKING_MESSAGES_ENDPOINT = "/esa/api/v2.0/message-tracking/messages?{query}"
+CISCOESA_SEARCH_MESSAGES_ERROR = "Error occurred while searching for messages. Parameters sent to ESA: {param}"
+CISCOESA_SEARCH_MESSAGES_SUCCESS = "Message search completed successfully"
+
+CISCOESA_MSG_TRACKING_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/details?{query}"
+CISCOESA_GET_MESSAGE_DETAILS_ERROR = "Error occurred while getting message details. Parameters sent to ESA: {param}"
+CISCOESA_GET_MESSAGE_DETAILS_SUCCESS = "Message details fetched successfully"
+
+CISCOESA_MSG_TRACKING_URL_ENDPOINT = "/esa/api/v2.0/message-tracking/url-details?{query}"
+CISCOESA_GET_MESSAGE_URL_ERROR = "Error occurred while getting message url details. Parameters sent to ESA: {param}"
+CISCOESA_GET_MESSAGE_URL_SUCCESS = "Message url details fetched successfully"
+
+
+
+
+
+
+
+
+CISCOESA_MSG_TRACKING_CONN_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/connection-details?{query}"
+CISCOESA_MSG_TRACKING_REMEDIATION_DETAILS_ENDPOINT = "/esa/api/v2.0/message-tracking/remediation-details?{query}"
+CISCOESA_QUARANTINE_MESSAGES_ENDPOINT = "/esa/api/v2.0/quarantine/messages?{query}"
+CISCOESA_QUARANTINE_MESSAGES_DETAILS_ENDPOINT = "/esa/api/v2.0/quarantine/messages/details?{query}"
 
 # POST
-# "/esa/api/v2.0/quarantine/messages?{resource_attribute}" # (move(not wanted), delaying(optionnal), )  # same as above endpoint?
-CISCOESA_QUARANTINE_BLOCKLIST_ENDPOINT = "/esa/api/v2.0/quarantine/blocklist?{resource_attribute}"
+# "/esa/api/v2.0/quarantine/messages?{query}" # (move(not wanted), delaying(optionnal), )  # same as above endpoint?
+CISCOESA_QUARANTINE_BLOCKLIST_ENDPOINT = "/esa/api/v2.0/quarantine/blocklist?{query}"
+
+
+
+
+
+
 
 
 CISCOESA_CONFIG_URL = "url"

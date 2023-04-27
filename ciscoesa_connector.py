@@ -85,6 +85,51 @@ def _is_ip(ip_address):
 
     return True
 
+def _add_query_params(data, base_url=None):
+    """
+    Takes a list of key-value pairs in either JSON or HTTP query parameter format and an optional base URL.
+    Returns a properly escaped query string that can be later appended to the base URL, or the final URL with the
+    encoded query parameters if a base URL is provided.
+    :param data: A string, dictionary or JSON object containing the key-value pairs to be added as query parameters.
+    :param base_url: An optional string representing the base URL to which the query parameters will be added.
+    :return: A string representing the final URL with the encoded query parameters if a base URL is provided,
+             or the encoded query parameters as a string if no base URL is provided.
+    """
+    query_params = {}
+
+    if isinstance(data, str):
+        if '{' in data and '}' in data:  # JSON format
+            try:
+                json_data = json.loads(data)
+            except json.JSONDecodeError:
+                raise ValueError('Invalid JSON format')
+            query_params.update(json_data)
+
+        else:  # HTTP query parameter format
+            items = data.split('&')
+            for item in items:
+                if '=' not in item:
+                    raise ValueError('Invalid HTTP query parameter format')
+                key, value = item.split('=', maxsplit=1)
+                query_params[key] = value
+
+    elif isinstance(data, dict):  # dictionary format
+        query_params.update(data)
+
+    else:
+        raise ValueError('Unsupported data format')
+
+    encoded_params = urllib.parse.urlencode(query_params, doseq=True)
+
+    if base_url:
+        parsed_url = urllib.parse.urlparse(base_url)
+        final_url = urllib.parse.urlunparse(
+            (parsed_url.scheme, parsed_url.netloc, parsed_url.path, parsed_url.params, encoded_params, parsed_url.fragment)
+        )
+        return final_url
+
+    return f"&{encoded_params}"
+
 
 class CiscoesaConnector(BaseConnector):
     """ This is an AppConnector class that inherits the BaseConnector class. It implements various actions supported by
@@ -612,11 +657,109 @@ class CiscoesaConnector(BaseConnector):
         else:
             return action_result.set_status(phantom.APP_SUCCESS, consts.CISCOESA_REMOVE_DICTIONARY_SUCCESS_MESSAGE)
 
+    def _handle_search_for_messages(self, param):
+        action_result = self.add_action_result(ActionResult(dict(param)))
+              
+        # Regular expression pattern for validating Sha256 hash
+        sha256_pattern = re.compile(r'^[a-fA-F0-9]{64}$')
+
+        # TODO: change this. we can look at ALL the keys in 'param' except 'context', instead of specifying the valid keys here
+        input_keys = [
+            "startDate",
+            "endDate",
+            "fileSha256",
+            "ciscoHost",
+            "subjectfilterOperator",
+            "subjectfilterValue",
+            "searchOption"
+        ]
+
+        query = ""
+        for key, value in param.items():
+            if key in input_keys:
+                if key == 'startDate' or key == 'endDate':
+                    # Attempt to parse the date in ISO format
+                    try:
+                        datetime.datetime.fromisoformat(value)
+                    except ValueError:
+                        raise ValueError(f'Invalid {key} format. Must be in ISO format, e.g. "YYYY-MM-DDTHH:MM:SS"')
+
+                elif key == 'fileSha256':
+                    # Validate the hash using the SHA256 pattern
+                    if not sha256_pattern.match(value):
+                        raise ValueError('Invalid fileSha256 format. Must be a Sha256 hash')
+
+                query += f"&{key}={value}"
+                
+                
+        query += _add_query_params(param['additional_parameters'])
+        if query.startswith("&"):
+            query = query[1:]  # remove leading "&" character
+        
+        ret_val, response = self._make_rest_call(consts.CISCOESA_MSG_TRACKING_MESSAGES_ENDPOINT.format(query=query), action_result)
+
+        if phantom.is_fail(response):
+            self.error_print(consts.CISCOESA_SEARCH_MESSAGES_ERROR.format(param=param))
+            return action_result.get_status()
+        action_result.add_data(response)
+
+        return action_result.set_status(phantom.APP_SUCCESS, consts.CISCOESA_SEARCH_MESSAGES_SUCCESS)
+
     def _handle_get_msgs_details(self, param):
-        return NotImplementedError("Action _handle_get_msgs_details not implemented.")
+        action_result = self.add_action_result(ActionResult(dict(param)))
+              
+        query = ""
+        for key, value in param.items():
+            if key == 'startDate' or key == 'endDate':
+                # Attempt to parse the date in ISO format
+                try:
+                    datetime.datetime.fromisoformat(value)
+                except ValueError:
+                    raise ValueError(f'Invalid {key} format. Must be in ISO format, e.g. "YYYY-MM-DDTHH:MM:SS"')
+
+            if key not in ["context", "additional_parameters"]:
+                query += f"&{key}={value}"
+
+        query += _add_query_params(param['additional_parameters'])
+        if query.startswith("&"):
+            query = query[1:]  # remove leading "&" character
+        
+        ret_val, response = self._make_rest_call(consts.CISCOESA_MSG_TRACKING_DETAILS_ENDPOINT.format(query=query), action_result)
+
+        if phantom.is_fail(response):
+            self.error_print(consts.CISCOESA_GET_MESSAGE_DETAILS_ERROR.format(param=param))
+            return action_result.get_status()
+        action_result.add_data(response)
+
+        return action_result.set_status(phantom.APP_SUCCESS, consts.CISCOESA_GET_MESSAGE_DETAILS_SUCCESS)
         
     def _handle_get_msgs_urls(self, param):
-        return NotImplementedError("Action _handle_get_msgs_urls not implemented.")
+        action_result = self.add_action_result(ActionResult(dict(param)))
+              
+        query = ""
+        for key, value in param.items():
+            if key == 'startDate' or key == 'endDate':
+                # Attempt to parse the date in ISO format
+                try:
+                    datetime.datetime.fromisoformat(value)
+                except ValueError:
+                    raise ValueError(f'Invalid {key} format. Must be in ISO format, e.g. "YYYY-MM-DDTHH:MM:SS"')
+
+            if key not in ["context", "additional_parameters"]:
+                query += f"&{key}={value}"
+
+        query += _add_query_params(param['additional_parameters'])
+        if query.startswith("&"):
+            query = query[1:]  # remove leading "&" character
+        
+        ret_val, response = self._make_rest_call(consts.CISCOESA_MSG_TRACKING_URL_ENDPOINT.format(query=query), action_result)
+
+        if phantom.is_fail(response):
+            self.error_print(consts.CISCOESA_GET_MESSAGE_URL_ERROR.format(param=param))
+            return action_result.get_status()
+        action_result.add_data(response)
+
+        return action_result.set_status(phantom.APP_SUCCESS, consts.CISCOESA_GET_MESSAGE_URL_SUCCESS)
         
     def _handle_get_msgs_connection_details(self, param):
         return NotImplementedError("Action _handle_get_msgs_connection_details not implemented.")
@@ -655,7 +798,7 @@ class CiscoesaConnector(BaseConnector):
             "list_dictionary_items": self._handle_list_dictionary_items,
             "add_dictionary_item": self._handle_add_dictionary_item,
             "remove_dictionary_item": self._handle_remove_dictionary_item,
-            "search_for_messages"
+            "search_for_messages": self._handle_search_for_messages,
             "get_msgs_details": self._handle_get_msgs_details, 
             "get_msgs_urls": self._handle_get_msgs_urls, 
             "get_msgs_connection_details": self._handle_get_msgs_connection_details, 
