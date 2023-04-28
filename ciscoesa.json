@@ -2348,8 +2348,8 @@
             "versions": "EQ(*)"
         },
         {
-            "action": "get messages urls",
-            "description": "Search for messages or a group of messages that match criteria that you specify",
+            "action": "get messages url details",
+            "description": "Retrieve the URL details of messages",
             "type": "generic",
             "identifier": "get_msgs_urls",
             "read_only": true,
@@ -2366,10 +2366,25 @@
                     "required": true,
                     "order": 1
                 },
+                "icid": {
+                    "description": "Injection Connection ID",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "mid": {
+                    "description": "Message ID",
+                    "data_type": "string",
+                    "order": 3
+                },
+                "serialNumber": {
+                    "description": "Email Gateway Serial Number",
+                    "data_type": "string",
+                    "order": 4
+                },
                 "additional_parameters": {
                     "description": "JSON or URL query string formatted additional parameters",
                     "data_type": "string",
-                    "order": 7
+                    "order": 5
                 }
             },
             "output": [
@@ -2403,7 +2418,157 @@
                 }
             ],
             "versions": "EQ(*)"
-        }
+        },
+        {
+            "action": "get messages connection details",
+            "description": "Retrieve the connection details of messages",
+            "type": "generic",
+            "identifier": "get_msgs_connection_details",
+            "read_only": true,
+            "parameters": {
+                "startDate": {
+                    "description": "Start Date (YYYY-MM-DDTHH:MM:SS)",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0
+                },
+                "endDate": {
+                    "description": "End Date (YYYY-MM-DDTHH:MM:SS)",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1
+                },
+                "icid": {
+                    "description": "Injection Connection ID",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "mid": {
+                    "description": "Message ID",
+                    "data_type": "string",
+                    "order": 3
+                },
+                "serialNumber": {
+                    "description": "Email Gateway Serial Number",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "additional_parameters": {
+                    "description": "JSON or URL query string formatted additional parameters",
+                    "data_type": "string",
+                    "order": 5
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get messages remediation details",
+            "description": "Retrieve the remediation details of messages",
+            "type": "generic",
+            "identifier": "get_msgs_remediation_details",
+            "read_only": true,
+            "parameters": {
+                "startDate": {
+                    "description": "Start Date (YYYY-MM-DDTHH:MM:SS)",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0
+                },
+                "endDate": {
+                    "description": "End Date (YYYY-MM-DDTHH:MM:SS)",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1
+                },
+                "searchOption": {
+                    "description": "Search Option",
+                    "data_type": "string",
+                    "default": "batch_details",
+                    "order": 2
+                },
+                "batchId": {
+                    "description": "Batch ID",
+                    "data_type": "string",
+                    "order": 3
+                },
+                "offset": {
+                    "description": "Offset",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "limit": {
+                    "description": "Limit",
+                    "data_type": "string",
+                    "order": 5
+                },
+                "additional_parameters": {
+                    "description": "JSON or URL query string formatted additional parameters",
+                    "data_type": "string",
+                    "order": 6
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "versions": "EQ(*)"
+        }                
 
     ],
     "pip_dependencies": {
