@@ -35,14 +35,19 @@ CISCOESA_MSG_TRACKING_REMEDIATION_DETAILS_ENDPOINT = "/esa/api/v2.0/message-trac
 CISCOESA_MSG_TRACKING_REMEDIATION_DETAILS_ERROR = "Error occurred while getting message remediation details. Parameters sent to ESA: {param}"
 CISCOESA_MSG_TRACKING_REMEDIATION_DETAILS_SUCCESS = "Message remediation details fetched successfully"
 
-
-
-
-
-
-
 CISCOESA_QUARANTINE_MESSAGES_ENDPOINT = "/esa/api/v2.0/quarantine/messages?{query}"
+CISCOESA_QUARANTINE_MESSAGES_ERROR = "Error occurred while searching for quarantined messages. Parameters sent to ESA: {param}"
+CISCOESA_QUARANTINE_MESSAGES_SUCCESS = "Quarantined messages search completed successfully"
+
 CISCOESA_QUARANTINE_MESSAGES_DETAILS_ENDPOINT = "/esa/api/v2.0/quarantine/messages/details?{query}"
+CISCOESA_QUARANTINE_MESSAGES_DETAILS_ERROR = "Error occurred while getting quarantined messages details. Parameters sent to ESA: {param}"
+CISCOESA_QUARANTINE_MESSAGES_DETAILS_SUCCESS = "Quarantined messages details fetched successfully"
+
+
+
+
+
+
 
 # POST
 # "/esa/api/v2.0/quarantine/messages?{query}" # (move(not wanted), delaying(optionnal), )  # same as above endpoint?

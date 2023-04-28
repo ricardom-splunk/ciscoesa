@@ -746,10 +746,10 @@ class CiscoesaConnector(BaseConnector):
         self._get_messages_details_helper(param, "CISCOESA_MSG_TRACKING_REMEDIATION_DETAILS")
         
     def _handle_get_quarantined_msgs(self, param):
-        return NotImplementedError("Action _handle_get_quarantined_msgs not implemented.")
+        self._get_messages_details_helper(param, "CISCOESA_QUARANTINE_MESSAGES_DETAILS")
         
     def _handle_get_quarantined_msgs_details(self, param):
-        return NotImplementedError("Action _handle_get_quarantined_msgs_details not implemented.")
+        self._get_messages_details_helper(param, "CISCOESA_QUARANTINE_MESSAGES_DETAILS_DETAILS")
         
     def _handle_send_quarantined_msg_copy_to_email(self, param):
         return NotImplementedError("Action _handle_send_quarantined_msg_copy_to_email not implemented.")
@@ -777,13 +777,13 @@ class CiscoesaConnector(BaseConnector):
             "add_dictionary_item": self._handle_add_dictionary_item,
             "remove_dictionary_item": self._handle_remove_dictionary_item,
             "search_for_messages": self._handle_search_for_messages,
-            "get_msgs_details": self._handle_get_msgs_details, 
-            "get_msgs_urls": self._handle_get_msgs_urls, 
-            "get_msgs_connection_details": self._handle_get_msgs_connection_details, 
-            "get_msgs_remediation_details": self._handle_get_msgs_remediation_details, 
-            "get_quarantined_msgs": self._handle_get_quarantined_msgs, 
-            "get_quarantined_msgs_details": self._handle_get_quarantined_msgs_details, 
-            "send_quarantined_msg_copy_to_email": self._handle_send_quarantined_msg_copy_to_email,  
+            "get_msgs_details": self._handle_get_msgs_details,
+            "get_msgs_urls": self._handle_get_msgs_urls,
+            "get_msgs_connection_details": self._handle_get_msgs_connection_details,
+            "get_msgs_remediation_details": self._handle_get_msgs_remediation_details,
+            "get_quarantined_msgs": self._handle_get_quarantined_msgs,
+            "get_quarantined_msgs_details": self._handle_get_quarantined_msgs_details,
+            "send_quarantined_msg_copy_to_email": self._handle_send_quarantined_msg_copy_to_email,
             "add_blocklist_entry": self._handle_add_blocklist_entry,  # new entry. recipient/sender to be passed as parameters
             "edit_blocklist_entry": self._handle_edit_blocklist_entry  # edit or append. recipient/sender to be passed as parameters    
         }
